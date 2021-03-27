@@ -1,0 +1,22 @@
+MAP
+	NAME "map_municipios"
+	SHAPEPATH "../data/"
+	EXTENT -73.990450 -33.751178 -28.847640 5.271841
+	SIZE 700 700
+	IMAGECOLOR 255 255 255
+	
+	LAYER
+		NAME "layer_municipios"
+		DATA "municipios/BR_Municipios_2020.shp"
+		TYPE POLYGON
+		STATUS DEFAULT
+		CLASS
+			NAME "class_municipios"
+			STYLE
+				COLOR 245 127 23
+				OUTLINECOLOR 0 0 0
+				WIDTH 1
+			END
+		END
+	END
+END

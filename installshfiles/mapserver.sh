@@ -45,4 +45,6 @@ make
 make install
 sudo ln --symbolic /usr/share/mapserver/bin/mapserv /usr/lib/cgi-bin/mapserv
 
+# SHOW
+firefox http://localhost/cgi-bin/mapserv?map=/home/victor/DevOps/mapservershfiles/maps/municipios.map&mode=map
 #sudo apt install php7.4-cli
