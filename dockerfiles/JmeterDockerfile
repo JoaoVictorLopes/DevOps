@@ -1,0 +1,23 @@
+FROM debian:stretch
+
+RUN apt update \
+	&& apt install --yes --no-install-recommends openjdk-8-jdk \
+	&& apt install --yes wget \
+	&& wget https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.3.tgz \
+	&& tar --verbose --extract --file=apache-jmeter-5.3.tgz --directory=/usr/share/
+
+ENV JMETER_HOME=/usr/share/apache-jmeter-5.3
+ENV PATH=$PATH:$JMETER_HOME/bin
+
+COPY jmxfiles jmxfiles
+
+RUN apt install --yes git
+
+CMD ["sh", "-c", "jmeter --nongui --reportatendofloadtests --testfile jmxfiles/geoserver.jmx --logfile log.txt --reportoutputfolder results11 && \
+git clone https://github.com/JoaoVictorLopes/results.git && \
+mv results11 results && cd results && git config --local user.email 'joao.victor_lopes27@outlook.com' && git config --local user.name 'João' && \
+git add --all && git commit -m 'update' && git push origin master && cd .. && \
+jmeter --nongui --reportatendofloadtests --testfile jmxfiles/geoserver2.jmx --logfile log2.txt --reportoutputfolder results22 && \
+git clone https://github.com/JoaoVictorLopes/results2.git && \
+mv results22 results2 && cd results2 && git config --local user.email 'joao.victor_lopes27@outlook.com' && git config --local user.name 'João' && \
+git add --all && git commit -m 'update' && git push origin master"]

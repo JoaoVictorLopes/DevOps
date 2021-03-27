@@ -1,0 +1,15 @@
+FROM debian:stretch
+
+RUN apt update \
+	&& apt install --yes openjdk-8-jdk \
+	&& apt install --yes wget \
+	&& apt install --yes unzip \
+	&& wget https://sourceforge.net/projects/geoserver/files/GeoServer/2.18.2/geoserver-2.18.2-bin.zip \
+	&& unzip geoserver-2.18.2-bin.zip -d /usr/share/geoserver
+
+ENV GEOSERVER_HOME=/usr/share/geoserver
+ENV PATH=$PATH:$GEOSERVER_HOME/bin
+
+EXPOSE 8080
+
+CMD ["sh", "-c", "startup.sh"]

@@ -1,0 +1,21 @@
+MAP
+	NAME "map_rodovias"
+	SHAPEPATH "../data/"
+	EXTENT -73.705074 -33.693081 -32.400220 4.483634
+	SIZE 700 700
+	IMAGECOLOR 0 0 0
+	
+	LAYER
+		NAME "layer_rodovias"
+		DATA "rodovias/rodovias.shp"
+		TYPE LINE
+		STATUS DEFAULT
+		CLASS
+			NAME "class_rodovias"
+			STYLE
+				COLOR 255 0 0
+				WIDTH 5
+			END
+		END
+	END
+END
