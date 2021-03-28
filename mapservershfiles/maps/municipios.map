@@ -5,6 +5,19 @@ MAP
 	SIZE 700 700
 	IMAGECOLOR 255 255 255
 	
+	WEB
+		METADATA
+#			"wms_title" "Municípios JVLS"
+			"wfs_enable_request" "GetCapabilities GetMap GetFeature"
+#			"wfs_srs" "EPSG:3978 EPSG:4326 EPSG:4269 EPSG:3857"
+#			"wfs_getfeature_formatlist" "application/json"
+		END
+	END
+
+	PROJECTION
+		"init=EPSG:4674"
+	END
+
 	LAYER
 		NAME "layer_municipios"
 		DATA "municipios/BR_Municipios_2020.shp"
@@ -18,5 +31,8 @@ MAP
 				WIDTH 1
 			END
 		END
+#		PROJECTION
+#			"init=EPSG:4674"
+#		END
 	END
 END
