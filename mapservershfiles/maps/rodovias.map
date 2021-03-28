@@ -18,4 +18,32 @@ MAP
 			END
 		END
 	END
+
+	OUTPUTFORMAT
+                NAME "png"
+                DRIVER AGG/PNG
+                MIMETYPE "image/png"
+        END
+
+        OUTPUTFORMAT
+                NAME "geojson"
+                DRIVER TEMPLATE
+                MIMETYPE "application/json"
+                FORMATOPTION "FILE=../templates/template_rodovias.js"
+        END
+
+	PROJECTION
+                "init=EPSG:4674" # REQUIRED FOR WMS
+        END
+
+        WEB
+                METADATA
+                        "wms_enable_request" "GetMap" # REQUIRED FOR WMS
+                        "wfs_title" "Rodovias"
+                        "wfs_enable_request" "GetFeature"
+                        "wfs_srs" "EPSG:4674"
+                        "wfs_getfeature_formatlist" "geojson"
+                        "wfs_maxfeatures" "8000"
+                END
+        END
 END

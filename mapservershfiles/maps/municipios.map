@@ -30,7 +30,7 @@ MAP
 		NAME "geojson"
 		DRIVER TEMPLATE
 		MIMETYPE "application/json"
-		FORMATOPTION "FILE=../templates/template.js"
+		FORMATOPTION "FILE=../templates/template_municipios.js"
 	END
 
 	PROJECTION
