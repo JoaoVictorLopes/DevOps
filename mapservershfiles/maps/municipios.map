@@ -4,19 +4,6 @@ MAP
 	EXTENT -73.990450 -33.751178 -28.847640 5.271841
 	SIZE 700 700
 	IMAGECOLOR 255 255 255
-	
-	WEB
-		METADATA
-#			"wms_title" "Municípios JVLS"
-			"wfs_enable_request" "GetCapabilities GetMap GetFeature"
-#			"wfs_srs" "EPSG:3978 EPSG:4326 EPSG:4269 EPSG:3857"
-#			"wfs_getfeature_formatlist" "application/json"
-		END
-	END
-
-	PROJECTION
-		"init=EPSG:4674"
-	END
 
 	LAYER
 		NAME "layer_municipios"
@@ -31,8 +18,33 @@ MAP
 				WIDTH 1
 			END
 		END
-#		PROJECTION
-#			"init=EPSG:4674"
-#		END
+	END
+
+	OUTPUTFORMAT
+		NAME "png"
+		DRIVER AGG/PNG
+		MIMETYPE "image/png"
+	END
+
+	OUTPUTFORMAT
+		NAME "geojson"
+		DRIVER TEMPLATE
+		MIMETYPE "application/json"
+		FORMATOPTION "FILE=../templates/template.js"
+	END
+
+	PROJECTION
+		"init=EPSG:4674" # REQUIRED FOR WMS
+	END
+
+	WEB
+		METADATA
+			"wms_enable_request" "GetMap" # REQUIRED FOR WMS
+			"wfs_title" "Municípios"
+			"wfs_enable_request" "GetFeature"
+			"wfs_srs" "EPSG:4674"
+			"wfs_getfeature_formatlist" "geojson"
+			"wfs_maxfeatures" "6000"
+		END
 	END
 END
