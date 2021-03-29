@@ -1,0 +1,57 @@
+FROM debian:stretch
+
+COPY mapservershfiles/ /jvls
+
+# APACHE
+RUN apt update
+RUN apt install --yes apache2
+RUN sed -i "56a\ServerName 127.0.0.1" /etc/apache2/apache2.conf
+RUN a2enmod cgi
+
+# REQUIRED
+RUN apt install --yes libgdal-dev
+RUN apt install --yes libproj-dev
+RUN apt install --yes libpng-dev
+RUN apt install --yes libfreetype6-dev
+RUN apt install --yes libjpeg-dev
+RUN apt install --yes zlib1g-dev
+RUN apt install --yes libfcgi-dev
+RUN apt install --yes libcairo2-dev
+RUN apt install --yes libharfbuzz-dev
+RUN apt install --yes libfribidi-dev
+RUN apt install --yes libprotobuf-c-dev
+RUN apt install --yes protobuf-c-compiler
+
+# DOWNLOAD
+RUN apt install --yes wget
+RUN wget https://download.osgeo.org/mapserver/mapserver-7.6.2.tar.gz
+
+# EXTRACT
+RUN mkdir mapserver
+RUN tar --extract --file mapserver-7.6.2.tar.gz --directory mapserver
+RUN rm mapserver-7.6.2.tar.gz
+
+# CONFIGURE
+RUN apt install --yes build-essential gcc g++ cmake
+RUN mkdir mapserver/mapserver-7.6.2/build
+RUN cd mapserver/mapserver-7.6.2/build \
+	&& cmake -DCMAKE_INSTALL_PREFIX=/usr/share/mapserver \
+	-DCMAKE_PREFIX_PATH=/usr/local/pgsql/91:/usr/local:/opt \
+        -DWITH_CLIENT_WFS=ON \
+        -DWITH_CLIENT_WMS=ON \
+        -DWITH_CURL=ON \
+        -DWITH_SOS=ON \
+        -WITH_PHP=ON \
+        -WITH_PHPNG=ON \
+        ../ > ../configure.out.txt \
+	&& make \
+	&& make install
+
+RUN ln --symbolic /usr/share/mapserver/bin/mapserv /usr/lib/cgi-bin/mapserv
+
+ENV MAPSERVER_HOME=/usr/share/mapserver
+ENV PATH=$PATH:$MAPSERVER_HOME/bin
+
+EXPOSE 80
+
+CMD ["/usr/sbin/apache2ctl", "-k", "restart", "-D", "FOREGROUND"]
