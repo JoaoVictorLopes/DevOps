@@ -12,5 +12,5 @@
 #sudo docker container stop geoserver
 
 # MapServer
-jmeter -Jthreads=100 -Jloops=1 -Jip=172.17.0.2 -Jport=80 --nongui --reportatendofloadtests --testfile jmxfiles/mapserver.jmx --logfile log.txt --reportoutputfolder results/users100_loops1_rodada1
+jmeter -Jthreads=100 -Jloops=1 -Jip=172.17.0.2 -Jport=80 --nongui --reportatendofloadtests --testfile jmxfiles/mapserver-municipios-geojson.jmx --logfile log.txt --reportoutputfolder results/users100_loops1_rodada1
 rm log.txt jmeter.log
