@@ -34,7 +34,7 @@
           <stringProp name="HTTPSampler.port">${PORT}</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/geoserver/geoserver_test/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=geoserver_test%3ABR_Municipios_2020&amp;maxFeatures=50&amp;outputFormat=application%2Fjson&amp;cql_filter=SIGLA_UF=%27RN%27</stringProp>
+          <stringProp name="HTTPSampler.path">/geoserver/geoserver_test/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=geoserver_test%3ABR_Municipios_2020&amp;outputFormat=application%2Fjson&amp;cql_filter=SIGLA_UF=%27RN%27</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
