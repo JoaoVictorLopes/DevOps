@@ -1,3 +1,6 @@
+# PHP
+#sudo apt install php7.4-cli
+
 # APACHE
 sudo apt install apache2
 sudo a2enmod cgi
@@ -46,5 +49,4 @@ make install
 sudo ln --symbolic /usr/share/mapserver/bin/mapserv /usr/lib/cgi-bin/mapserv
 
 # SHOW
-firefox http://localhost/cgi-bin/mapserv?map=/home/victor/DevOps/mapservershfiles/maps/municipios.map&mode=map
-#sudo apt install php7.4-cli
+#firefox http://localhost/cgi-bin/mapserv?map=/home/victor/DevOps/mapservershfiles/maps/municipios.map&mode=map
