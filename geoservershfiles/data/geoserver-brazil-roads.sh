@@ -2,20 +2,20 @@
 wget https://www.gov.br/infraestrutura/pt-br/centrais-de-conteudo/rodovias-zip
 
 # CREATE WORKSPACE
-curl --verbose -X POST -H "Content-Type: text/xml" --data "<workspace><name>geoserver_test</name></workspace>" --url 172.17.0.2:8080/geoserver/rest/workspaces --user admin:geoserver
+curl --verbose -X POST -H "Content-Type: text/xml" --data "<workspace><name>geoserver_test</name></workspace>" --url 127.0.0.1:9191/geoserver/rest/workspaces --user admin:geoserver
 
 # RETRIEVE WORKSPACE
 #curl --verbose --url 172.17.0.2:8080/geoserver/rest/workspaces/geoserver_test --user admin:geoserver
 
 # CREATE DATASTORE
-curl --verbose -X PUT -H "Content-Type: application/zip" --data-binary @rodovias-zip --url 172.17.0.2:8080/geoserver/rest/workspaces/geoserver_test/datastores/brazil_data3/file.shp --user admin:geoserver
+curl --verbose -X PUT -H "Content-Type: application/zip" --data-binary @rodovias-zip --url 127.0.0.1:9191/geoserver/rest/workspaces/geoserver_test/datastores/brazil_data3/file.shp --user admin:geoserver
 rm rodovias-zip
 
 # RETRIEVE DATASTORE
 #curl --verbose --url 172.17.0.2:8080/geoserver/rest/workspaces/geoserver_test/datastores/brazil_data --user admin:geoserver
 
 # CREATE LAYER
-curl --verbose --url -X POST --url 172.17.0.2:8080/geoserver/rest/workspaces/geoserver_test/datastores/brazil_data3/featuretypes --user admin:geoserver
+curl --verbose --url -X POST --url 127.0.0.1:9191/geoserver/rest/workspaces/geoserver_test/datastores/brazil_data3/featuretypes --user admin:geoserver
 
 # RETRIEVE LAYER
 #curl --verbose --url 172.17.0.2:8080/geoserver/rest/layers/geoserver_test:Centralidade_2007 --user admin:geoserver
