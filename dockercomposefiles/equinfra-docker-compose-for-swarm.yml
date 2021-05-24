@@ -7,30 +7,31 @@ services:
     image: joaovictorlopes/nginx:v1.0.0
     ports:
       - 8080:80
-#    networks:
-#      - network1
+    networks:
+      - network1
     depends_on:
       - web
   web:
     image: joaovictorlopes/equinfraweb:swarm
-    #ports:
-    #  - 127.0.0.1:9090:8080
-#    networks:
-#      - network1
+    ports:
+      - 9090:8080
+    networks:
+      - network1
     #deploy:
     #  replicas: 1
     depends_on:
       - database
   database:
     image: joaovictorlopes/equinfradatabase:v1.0.0
-#    networks:
-#      - network1
+    networks:
+      network1:
+        ipv4_address: 10.0.1.8
 
-#networks:
-#  network1:
- #   name: jvls
-  #  driver: bridge
-   # ipam:
-    #  driver: default
-     # config:
-      #  - subnet: 172.18.0.0/16
+networks:
+  network1:
+    name: jvls
+    driver: overlay
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.1.0/24
