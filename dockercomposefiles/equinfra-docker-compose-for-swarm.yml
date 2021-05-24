@@ -1,0 +1,36 @@
+# Versão do Docker Engine.
+version: '3.8'
+
+# Serviços da infraestrutura.
+services:
+  balancer:
+    image: joaovictorlopes/nginx:v1.0.0
+    ports:
+      - 8080:80
+#    networks:
+#      - network1
+    depends_on:
+      - web
+  web:
+    image: joaovictorlopes/equinfraweb:swarm
+    #ports:
+    #  - 127.0.0.1:9090:8080
+#    networks:
+#      - network1
+    #deploy:
+    #  replicas: 1
+    depends_on:
+      - database
+  database:
+    image: joaovictorlopes/equinfradatabase:v1.0.0
+#    networks:
+#      - network1
+
+#networks:
+#  network1:
+ #   name: jvls
+  #  driver: bridge
+   # ipam:
+    #  driver: default
+     # config:
+      #  - subnet: 172.18.0.0/16
