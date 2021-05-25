@@ -1,0 +1,23 @@
+# Versão do Docker Engine.
+version: '3.8'
+
+# Serviços em contêineres.
+services:
+  geoserver:
+    image: joaovictorlopes/geoserver:v1.0.0
+    ports:
+      - 8181:8080
+#    depends_on:
+#      - nginx
+#    networks:
+#      - network1
+
+# Redes dos contêineres.
+#networks:
+#  network1:
+#    name: jvls
+#    driver: overlay
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: 20.0.0.0/24
