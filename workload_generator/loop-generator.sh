@@ -3,6 +3,6 @@ loops=$1
 
 while [ $count -lt $loops ]
 do
-	curl 127.0.0.1:8181/geoserver
+	curl 127.0.0.1:8080/geoserver
 	count=`expr $count + 1`
 done

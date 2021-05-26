@@ -7,7 +7,7 @@ api_client = docker.APIClient(base_url="unix://var/run/docker.sock")
 
 # Recuperar objetos de interação.
 #swarm = client.swarm.join(remote_addrs=["10.7.41.146:2377"], join_token="SWMTKN-1-3ayrgp3iqoyjfucisfjs89q3p8vgddhpxrh05dsjosdi8s40if-ctv6e90zlk4ej9b6nf42zbz5o")
-container = docker_client.containers.get("geoserver_stack_geoserver.1.2zjqmhfk86oftu5sb6mbudf2n")
+container = docker_client.containers.get("geoserver_stack_geoserver.1.ros4rmbqejolqlwc988kroxye")
 service = docker_client.services.get("geoserver_stack_geoserver")
 
 # Repetir monitoramento e ativação.
