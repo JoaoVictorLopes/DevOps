@@ -32,9 +32,9 @@ while (True):
 	#print("precpu_stats.online_cpus: " + array[119].split(",")[0].lstrip())
 
 	# Calcular deltas.
-	cpu_delta = int(cpu_stats_array[102].split(",")[0].lstrip()) - int(cpu_stats_array[114].split(",")[0].lstrip())
-	system_cpu_delta = int(cpu_stats_array[106].split(",")[0].lstrip()) - int(cpu_stats_array[118].split(",")[0].lstrip())
-	online_cpus = int(cpu_stats_array[107].split(",")[0].lstrip())
+	cpu_delta = int(cpu_stats_array[21].split(",")[0].lstrip()) - int(cpu_stats_array[32].split(",")[0].lstrip())
+	system_cpu_delta = int(cpu_stats_array[24].split(",")[0].lstrip()) - int(cpu_stats_array[35].split(",")[0].lstrip())
+	online_cpus = int(cpu_stats_array[25].split(",")[0].lstrip())
 
 	#print("cpu_delta: " + str(cpu_delta))
 	#print("system_cpu_delta: " + str(system_cpu_delta))
@@ -55,7 +55,7 @@ while (True):
 	#	index = index + 1
 	#	print(str(index) + " - " + value)
 
-	service_replicas = int(inspect_service_array[45].split(",")[0].lstrip()[0])
+	service_replicas = int(inspect_service_array[39].split(",")[0].lstrip()[0])
 	print("service_replicas: " + str(service_replicas))
 
 	if (cpu_usage_percentage > 5 and service_replicas == 1):
