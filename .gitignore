@@ -5,3 +5,5 @@ mapservershfiles/data
 apache-jmeter-5.3.tgz
 apache-jmeter-5.3/
 nohup.out
+prometheus-2.31.1.linux-amd64.tar.gz
+prometheus-2.31.1.linux-amd64
