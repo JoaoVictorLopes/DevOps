@@ -16,8 +16,6 @@ services:
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
-    container_name: cadvisor
-    #privileged: true
     ports:
       - 9191:8080
     volumes:
@@ -27,8 +25,8 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
       #- /etc/machine-id:/etc/machine-id:ro
       #- /var/lib/dbus/machine-id:/var/lib/dbus/machine-id:ro
-    devices:
-      - /dev/kmsg:/dev/kmsg
+#    devices:
+#      - /dev/kmsg
     depends_on:
       - geoserver
 

@@ -25,7 +25,7 @@ sudo apt-key fingerprint 0EBFCD88
 #sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release --codename --short) stable'
 
 # Configurar repositório estável do Docker no Mint.
-sudo add-apt-repository 'deb https://download.docker.com/linux/ubuntu bionic stable'
+sudo add-apt-repository 'deb https://download.docker.com/linux/ubuntu focal stable'
 
 # Atualizar repositórios do Ubuntu.
 sudo apt update
