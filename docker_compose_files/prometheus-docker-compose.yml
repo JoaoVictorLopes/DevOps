@@ -13,11 +13,22 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
       - cadvisor
+      - node
+
+  node:
+    image: quay.io/prometheus/node-exporter:latest
+    command:
+      - --path.rootfs=/host
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - /:/host:ro,rslave
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     ports:
-      - 9191:8080
+      - 9292:8080
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
