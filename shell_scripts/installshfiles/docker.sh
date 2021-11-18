@@ -22,10 +22,10 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo apt-key fingerprint 0EBFCD88
 
 # Configurar repositório estável do Docker no Ubuntu.
-#sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release --codename --short) stable'
+sudo add-apt-repository 'deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release --codename --short) stable'
 
 # Configurar repositório estável do Docker no Mint.
-sudo add-apt-repository 'deb https://download.docker.com/linux/ubuntu focal stable'
+#sudo add-apt-repository deb https://download.docker.com/linux/ubuntu focal stable'
 
 # Atualizar repositórios do Ubuntu.
 sudo apt update
