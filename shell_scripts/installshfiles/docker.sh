@@ -49,3 +49,4 @@ sudo docker run hello-world
 
 # Remover imagens, contêineres e volumes.
 #sudo rm -rf /var/lib/docker
+#sudo rm -rf /var/lib/containerd
