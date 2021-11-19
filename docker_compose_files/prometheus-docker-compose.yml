@@ -3,27 +3,32 @@ version: '3.8'
 
 # Serviços em contêineres.
 services:
+  grafana:
+    image: grafana/grafana:latest-ubuntu
+    ports:
+      - 9090:3000
+
   prometheus:
     image: prom/prometheus:latest
     ports:
-      - 9090:9090
+      - 9191:9090
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
       - cadvisor
-      - node
+#      - node
 
-  node:
-    image: quay.io/prometheus/node-exporter:latest
-    command:
-      - --path.rootfs=/host
-    network_mode: host
-    pid: host
-    restart: unless-stopped
-    volumes:
-      - /:/host:ro,rslave
+#  node:
+#    image: quay.io/prometheus/node-exporter:latest
+#    command:
+#      - --path.rootfs=/host
+#    network_mode: host
+#    pid: host
+#    restart: unless-stopped
+#    volumes:
+#      - /:/host:ro,rslave
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
