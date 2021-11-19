@@ -7,6 +7,10 @@ services:
     image: grafana/grafana:latest-ubuntu
     ports:
       - 9090:3000
+    volumes:
+      - ./grafana.yaml:/etc/grafana/provisioning/datasources/sample.yaml:ro
+    depends_on:
+      - prometheus
 
   prometheus:
     image: prom/prometheus:latest
