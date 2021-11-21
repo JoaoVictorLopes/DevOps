@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.prometheus.client.Counter;
+import io.prometheus.client.exporter.HTTPServer;
+//import io.prometheus.client.spring.boot.EnablePrometheusEndpoint;
 
 /**
  * Hello world!
@@ -14,6 +16,7 @@ import io.prometheus.client.Counter;
  */
 @SpringBootApplication
 @RestController
+//@EnablePrometheusEndpoint
 public class App
 {
     static final Counter requests = Counter.build().name("sgeol_requests_total").help("Sgeol total requests.").register();
@@ -22,6 +25,12 @@ public class App
     {
         SpringApplication.run(App.class, args);
         System.out.println( "Hello World!" );
+        try {
+          HTTPServer server = new HTTPServer(1234);
+        }
+        catch (Exception e) {
+          
+        }
     }
 
     @GetMapping("/")
