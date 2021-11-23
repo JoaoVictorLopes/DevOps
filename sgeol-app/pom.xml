@@ -56,10 +56,10 @@
       <artifactId>simpleclient_pushgateway</artifactId>
       <version>0.12.0</version>
     </dependency>
-    <!-- Spring Boot exposition-->
+    <!-- Spring exposition-->
     <dependency>
       <groupId>io.prometheus</groupId>
-      <artifactId>simpleclient_spring_boot</artifactId>
+      <artifactId>simpleclient_spring_web</artifactId>
       <version>0.12.0</version>
     </dependency>
 

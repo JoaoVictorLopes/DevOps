@@ -42,6 +42,6 @@ scrape_configs:
       - targets:
         - cadvisor:8080
 
-  - job_name: "spring"
+  - job_name: "sgeol"
     static_configs:
-      - targets: ["10.96.5.139:1234"]
+      - targets: ["10.96.5.139:9200"]
