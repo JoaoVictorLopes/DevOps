@@ -15,6 +15,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <name>sgeol-app</name>
+  <description>Intermediário de Métricas.</description>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -72,7 +73,13 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-    </dependency>    
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-mongodb</artifactId>
+      <version>3.3.0</version>
+    </dependency>
   </dependencies>
 
   <build>
