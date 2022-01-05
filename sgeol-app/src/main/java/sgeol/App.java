@@ -7,12 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-// Prometheus.
-import io.prometheus.client.Counter;
-import io.prometheus.client.exporter.HTTPServer;
-import io.prometheus.client.spring.web.EnablePrometheusTiming;
-import io.prometheus.client.spring.web.PrometheusTimeMethod;
-
 // Spring Data.
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -21,6 +15,13 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.domain.Sort;
 import java.util.List;
+
+// Prometheus.
+import io.prometheus.client.Counter;
+import io.prometheus.client.Histogram;
+import io.prometheus.client.exporter.HTTPServer;
+import io.prometheus.client.spring.web.EnablePrometheusTiming;
+import io.prometheus.client.spring.web.PrometheusTimeMethod;
 
 /**
  * Hello world!
@@ -32,19 +33,12 @@ import java.util.List;
 public class App
 {
     static final Counter counter = Counter.build().name("sgeol_http_requests_total").help("Total de solicitações HTTP do SGeoL.").register();
+    static final Histogram histogram = Histogram.build().name("sgeol_operation_response_time").help("Tempo de resposta da operação do SGeoL.").register();
 
     public static void main( String[] args )
     {
 	// Spring Web.
         SpringApplication.run(App.class, args);
-
-	// Prometheus.
-        try {
-          HTTPServer server = new HTTPServer(9200);
-        }
-        catch (Exception e) {
-          System.out.println("Falhou!");
-        }
 
 	// Spring Data.
 	MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
@@ -61,6 +55,24 @@ public class App
 	System.out.println(list.get(0).getName());
 
 	mongoOperations.dropCollection("person");
+
+	// Prometheus.
+        try {
+          HTTPServer server = new HTTPServer(9200);
+        }
+        catch (Exception e) {
+          System.out.println("Exporter Failed: " + e);
+        }
+
+	while (true) {
+		histogram.observe(list.get(0).getAge());
+		try {
+			Thread.sleep(15000);
+		}
+		catch (Exception e) {
+			System.out.println("Interval Failed: " + e);
+		}
+	}
     }
 
     @GetMapping("/")
