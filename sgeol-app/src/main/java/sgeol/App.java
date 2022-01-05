@@ -19,7 +19,8 @@ import com.mongodb.client.MongoClients;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
-import static org.springframework.data.mongodb.core.query.Criteria.where;
+import org.springframework.data.domain.Sort;
+import java.util.List;
 
 /**
  * Hello world!
@@ -48,8 +49,17 @@ public class App
 	// Spring Data.
 	MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
 	MongoOperations mongoOperations = new MongoTemplate(mongoClient, "test");
-	mongoOperations.insert(new Person("Joe", 34));
-	System.out.println(mongoOperations.findOne(new Query(where("name").is("Joe")), Person.class));
+
+	mongoOperations.insert(new Person("Mateus", 1));
+	mongoOperations.insert(new Person("Marcos", 2));
+	mongoOperations.insert(new Person("Lucas", 3));
+	mongoOperations.insert(new Person("João", 4));
+
+	Query query = new Query();
+	Sort sort = Sort.by(Sort.Direction.DESC, "_id");
+	List<Person> list = mongoOperations.find(query.with(sort).limit(1), Person.class);
+	System.out.println(list.get(0).getName());
+
 	mongoOperations.dropCollection("person");
     }
 
