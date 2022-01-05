@@ -49,12 +49,7 @@ public class App
 	mongoOperations.insert(new Person("Lucas", 3));
 	mongoOperations.insert(new Person("João", 4));
 
-	Query query = new Query();
-	Sort sort = Sort.by(Sort.Direction.DESC, "_id");
-	List<Person> list = mongoOperations.find(query.with(sort).limit(1), Person.class);
-	System.out.println(list.get(0).getName());
-
-	mongoOperations.dropCollection("person");
+	//mongoOperations.dropCollection("person");
 
 	// Prometheus.
         try {
@@ -65,7 +60,12 @@ public class App
         }
 
 	while (true) {
+		Query query = new Query();
+		Sort sort = Sort.by(Sort.Direction.DESC, "_id");
+		List<Person> list = mongoOperations.find(query.with(sort).limit(1), Person.class);
+		System.out.println(list.get(0).getName());
 		histogram.observe(list.get(0).getAge());
+
 		try {
 			Thread.sleep(15000);
 		}
