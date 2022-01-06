@@ -20,8 +20,6 @@ import java.util.List;
 import io.prometheus.client.Counter;
 import io.prometheus.client.Histogram;
 import io.prometheus.client.exporter.HTTPServer;
-import io.prometheus.client.spring.web.EnablePrometheusTiming;
-import io.prometheus.client.spring.web.PrometheusTimeMethod;
 
 /**
  * Hello world!
@@ -29,11 +27,12 @@ import io.prometheus.client.spring.web.PrometheusTimeMethod;
  */
 @SpringBootApplication
 @RestController
-@EnablePrometheusTiming
 public class App
 {
     static final Counter counter = Counter.build().name("sgeol_http_requests_total").help("Total de solicitações HTTP do SGeoL.").register();
-    static final Histogram histogram = Histogram.build().name("sgeol_operation_response_time").help("Tempo de resposta da operação do SGeoL.").register();
+    static final Histogram histogramAuthenticationTime = Histogram.build().name("sgeol_geographic_operation_authentication_time").help("Tempo de autenticação da operação geográfica do SGeoL.").register();
+    static final Histogram histogramAuthorizationTime = Histogram.build().name("sgeol_geographic_operation_authorization_time").help("Tempo de autorização da operação geográfica do SGeoL.").register();
+    static final Histogram histogramRequestTime = Histogram.build().name("sgeol_geographic_operation_request_time").help("Tempo de solicitação da operação geográfica do SGeoL.").register();
 
     public static void main( String[] args )
     {
@@ -42,14 +41,7 @@ public class App
 
 	// Spring Data.
 	MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
-	MongoOperations mongoOperations = new MongoTemplate(mongoClient, "test");
-
-	mongoOperations.insert(new Person("Mateus", 1));
-	mongoOperations.insert(new Person("Marcos", 2));
-	mongoOperations.insert(new Person("Lucas", 3));
-	mongoOperations.insert(new Person("João", 4));
-
-	//mongoOperations.dropCollection("person");
+	MongoOperations mongoOperations = new MongoTemplate(mongoClient, "sgeol_ld");
 
 	// Prometheus.
         try {
@@ -62,9 +54,11 @@ public class App
 	while (true) {
 		Query query = new Query();
 		Sort sort = Sort.by(Sort.Direction.DESC, "_id");
-		List<Person> list = mongoOperations.find(query.with(sort).limit(1), Person.class);
-		System.out.println(list.get(0).getName());
-		histogram.observe(list.get(0).getAge());
+		List<AccessLog> list = mongoOperations.find(query.with(sort).limit(1), AccessLog.class);
+		System.out.println(list.get(0).getLayer());
+		histogramAuthenticationTime.observe(list.get(0).getAuthenticationTimeProcess());
+		histogramAuthorizationTime.observe(list.get(0).getAuthorizationTimeProcess());
+		histogramRequestTime.observe(list.get(0).getRequestTimeProcess());
 
 		try {
 			Thread.sleep(15000);
@@ -76,7 +70,6 @@ public class App
     }
 
     @GetMapping("/")
-    @PrometheusTimeMethod(name = "sgeol_http_request_seconds", help = "Duração em segundos da solicitação HTTP do SGeoL.")
     public String index(@RequestParam(value = "name", defaultValue = "World") String name) {
 	counter.inc();
         return String.format("Hello %s!", name);
