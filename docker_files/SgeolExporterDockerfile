@@ -3,8 +3,8 @@ FROM debian:stretch
 RUN apt update
 RUN apt install --yes openjdk-8-jdk
 
-COPY sgeol-exporter sgeol-exporter
+COPY sgeol-exporter-1.0-SNAPSHOT.jar /
 
 EXPOSE 8181
 
-CMD ["sh", "-c", "java -jar sgeol-exporter/target/sgeol-app-1.0-SNAPSHOT.jar"]
+CMD ["sh", "-c", "java -jar sgeol-exporter-1.0-SNAPSHOT.jar"]
