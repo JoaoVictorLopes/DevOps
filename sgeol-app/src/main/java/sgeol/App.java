@@ -3,9 +3,10 @@ package sgeol;
 // Spring Web.
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.ConfigurableApplicationContext;
 
 // Spring Data.
 import com.mongodb.client.MongoClient;
@@ -37,11 +38,14 @@ public class App
     public static void main( String[] args )
     {
 	// Spring Web.
-        SpringApplication.run(App.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(App.class, args);
 
 	// Spring Data.
-	MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
-	MongoOperations mongoOperations = new MongoTemplate(mongoClient, "sgeol_ld");
+        String host = context.getEnvironment().getProperty("spring.data.mongodb.host");
+        String port = context.getEnvironment().getProperty("spring.data.mongodb.port");
+        String database = context.getEnvironment().getProperty("spring.data.mongodb.database");
+	MongoClient mongoClient = MongoClients.create("mongodb://" + host + ":" + port);
+	MongoOperations mongoOperations = new MongoTemplate(mongoClient, database);
 
 	// Prometheus.
         try {

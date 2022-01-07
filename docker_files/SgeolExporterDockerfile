@@ -1,18 +1,10 @@
 FROM debian:stretch
 
-COPY ../sgeol-app /sgeol-exporter
+RUN apt update
+RUN apt install --yes openjdk-8-jdk
 
-RUN apt update \
-	&& apt install --yes openjdk-8-jdk \
-	&& apt install --yes wget \
-	&& wget https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz \
-	&& tar --extract --file apache-maven-3.8.4-bin.tar.gz \
-	&& pwd
+COPY sgeol-exporter sgeol-exporter
 
-#ENV GEOSERVER_HOME=/usr/share/geoserver
-#ENV PATH=$PATH:$GEOSERVER_HOME/bin
+EXPOSE 8181
 
-EXPOSE 8080
-
-CMD ["sh", "-c", "mvn spring-boot:run"]
-### Não finalizado!
+CMD ["sh", "-c", "java -jar sgeol-exporter/target/sgeol-app-1.0-SNAPSHOT.jar"]
