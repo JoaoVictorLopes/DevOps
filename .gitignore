@@ -12,3 +12,6 @@ node_exporter-1.2.2.linux-amd64
 apache-maven-3.8.4-bin.tar.gz
 apache-maven-3.8.4
 sgeol-app/target/
+go1.16.4.linux-amd64.tar.gz
+go
+postgres_exporter/
