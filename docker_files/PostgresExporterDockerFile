@@ -1,0 +1,9 @@
+FROM debian:stretch
+
+COPY postgres_exporter /
+
+ENV DATA_SOURCE_URI=localhost:5432
+
+EXPOSE 9187
+
+CMD ["sh", "-c", "./postgres_exporter"]
